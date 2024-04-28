@@ -15,6 +15,7 @@ def get_state():
         ls.append(state.to_dict())
     return jsonify(ls)
 
+
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state(state_id):
     """Retrieves a state object based on id"""
@@ -22,6 +23,7 @@ def get_state(state_id):
     if rez is None:
         abort(404)
     return jsonify(rez.to_dict())
+
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
@@ -32,6 +34,7 @@ def delete_state(state_id):
     storage.delete(rez)
     storage.save()
     return make_response(jsonify({}), 200)
+
 
 @app_views.route('/states', methods=['POST'], strict_slashes=False)
 def post_state():
@@ -44,6 +47,7 @@ def post_state():
     ob = State(**dat)
     ob.save()
     return jsonify(ob.to_dict()), 201
+
 
 @app_views.route('/states/<state_id>', methods=['UPDATE'], strict_slashes=False)
 def update_state(state_id):

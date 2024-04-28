@@ -15,6 +15,7 @@ def get_city(city_id):
         abort(404)
     return jsonify(al.to_dict())
 
+
 @app_views.route('/states/<state_id>/cities', methods=['GET'], strict_slashes=False)
 def get_city(state_id):
     """Retrieves a city object based on id"""
@@ -26,6 +27,7 @@ def get_city(state_id):
         ls.append(city.to_dict())
     return jsonify(ls)
 
+
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def delete_city(city_id):
     """Deletes a city object based on id"""
@@ -35,6 +37,7 @@ def delete_city(city_id):
     storage.delete(rez)
     storage.save()
     return make_response(jsonify({}), 200)
+
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'], strict_slashes=False)
 def post_city(state_id):
@@ -51,6 +54,7 @@ def post_city(state_id):
     ob.state_id = rez.id
     ob.save()
     return jsonify(ob.to_dict()), 201
+
 
 @app_views.route('/cities/<city_id>', methods=['UPDATE'], strict_slashes=False)
 def update_city(city_id):
