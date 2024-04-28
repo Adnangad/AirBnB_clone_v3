@@ -14,8 +14,10 @@ def get_cities_by_state(state_id):
     state = storage.get(State, state_id)
     if not state:
         abort(404)
-    cities = [city.to_dict() for city in state.cities]
-    return jsonify(cities)
+    ls = []
+    for city in state.cities:
+        ls.append(city.to_dict())
+    return jsonify(ls)
 
 
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
@@ -50,10 +52,10 @@ def create_city(state_id):
         abort(400, "Not a JSON")
     if 'name' not in data:
         abort(400, "Missing name")
-    data['state_id'] = state_id
-    city = City(**data)
-    city.save()
-    return jsonify(city.to_dict()), 201
+    ob = City(**data)
+    ob.state_id = state.id
+    ob.save()
+    return jsonify(ob.to_dict()), 201
 
 
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
@@ -69,5 +71,5 @@ def update_city(city_id):
     for key, value in data.items():
         if key not in ignore_keys:
             setattr(city, key, value)
-    city.save()
+    storage.save()
     return jsonify(city.to_dict()), 200
