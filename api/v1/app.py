@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """This is the flask module"""
 from flask import Flask, jsonify, make_response
-import os
 import models
+import os
 from api.v1.views import app_views
 
 
@@ -18,13 +18,13 @@ def close():
 
 @app.errorhandler(404)
 def err(error):
-    """Handles the 404 error."""
+    """Handles the 404 error"""
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == '__main__':
-    host = getenv('HBNB_API_HOST')
-    port = getenv('HBNB_API_PORT')
+    host = os.getenv('HBNB_API_HOST')
+    port = os.getenv('HBNB_API_PORT')
     if not host:
         host = '0.0.0.0'
     if not port:
