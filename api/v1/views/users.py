@@ -8,21 +8,18 @@ from models.user import User
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def get_users():
-    """Retrieves the list of all useres"""
-    users = storage.all(User)
-    ls = []
-    for user in users:
-        ls.append(user.to_dict())
-    return jsonify(ls)
+    """Retrieves the list of all users"""
+    users = storage.all(User).values()
+    return jsonify([user.to_dict() for user in users])
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
 def get_user_by_id(user_id):
     """Retrieves a specific user based on id"""
-    rez = storage.get(User, user_id)
-    if not rez:
+    user = storage.get(User, user_id)
+    if not user:
         abort(404)
-    return jsonify(rez.to_dict())
+    return jsonify(user.to_dict())
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
@@ -32,30 +29,32 @@ def delete_user(user_id):
     if not user:
         abort(404)
     storage.delete(user)
-    storagesave()
+    storage.save()
     return jsonify({}), 200
 
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     """Creates a new user"""
-    user = request.get_json()
-    if not user:
+    data = request.get_json()
+    if not data:
         abort(400, "Not a JSON")
-    if 'email' not in user:
+    if 'email' not in data:
         abort(400, "Missing email")
-    if 'password' not in user:
+    if 'password' not in data:
         abort(400, "Missing password")
-    new_user = User(**user)
-    new_user.save()
-    return jsonify(new_user.to_dict()), 201
+    user = User(**data)
+    user.save()
+    return jsonify(user.to_dict()), 201
 
 
-@app_views.route('/users/<user_id>', methods=['UPDATE'], strict_slashes=False)
+@app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
     """Updates a user"""
-    data = request.get_json()
     user = storage.get(User, user_id)
+    if not user:
+        abort(404)
+    data = request.get_json()
     if not data:
         abort(400, "Not a JSON")
     for key, value in data.items():
