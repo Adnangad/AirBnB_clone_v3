@@ -13,7 +13,9 @@ def get_cities(state_id):
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    cities = [city.to_dict() for city in state.cities]
+    cities = []
+    for city in state.cities:
+        cities.append(city.to_dict())
     return jsonify(cities)
 
 
@@ -48,7 +50,7 @@ def create_city(state_id):
         abort(400, "Not a JSON")
     if 'name' not in data:
         abort(400, "Missing name")
-    data['state_id'] = state_id
+    data.state_id = state.id
     city = City(**data)
     city.save()
     return jsonify(city.to_dict()), 201
@@ -68,4 +70,3 @@ def update_city(city_id):
             setattr(city, key, value)
     city.save()
     return jsonify(city.to_dict()), 200
-
