@@ -9,6 +9,7 @@ from flask import abort, jsonify, make_response, request
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
                  strict_slashes=False)
+@app_views.route('/states/<state_id>/cities/', methods=['GET'])
 def get_cities(state_id):
     """
     Retrieves the list of all cities objects
@@ -25,6 +26,7 @@ def get_cities(state_id):
 
 
 @app_views.route('/cities/<city_id>/', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>/cities/', methods=['POST'])
 def get_city_by_id(city_id):
     """
     Retrieves a specific city based on id
