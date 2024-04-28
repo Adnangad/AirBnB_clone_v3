@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""States module"""
 from models.state import State
 from flask import abort, jsonify, make_response, request
 from models import storage
@@ -19,7 +20,7 @@ def get_state(state_id):
     """Retrieves a state object based on id"""
     rez = storage.get(State, state_id)
     if rez is None:
-        return abort(404)
+        abort(404)
     return jsonify(rez.to_dict())
 
 @app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
@@ -27,7 +28,7 @@ def delete_state(state_id):
     """Deletes a state object based on id"""
     rez = storage.get(State, state_id)
     if rez is None:
-        return abort(404)
+        abort(404)
     storage.delete(rez)
     storage.save()
     return make_response(jsonify({}), 200)
@@ -42,7 +43,7 @@ def post_state():
         abort(400, "Missing name")
     ob = State(**dat)
     ob.save()
-    return jsonify(ob.to_dict()), 200
+    return jsonify(ob.to_dict()), 201
 
 @app_views.route('/states/<state_id>', methods=['UPDATE'], strict_slashes=False)
 def update_state(state_id):
