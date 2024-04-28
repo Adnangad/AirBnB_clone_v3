@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""States module"""
+"""Amenities module"""
 from models.amenity import Amenity
 from flask import abort, jsonify, make_response, request
 from models import storage
@@ -17,7 +17,7 @@ def get_amenity():
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
-def get_amenity(amenity_id):
+def get_amenity_withid(amenity_id):
     """Retrieves a state object based on id"""
     rez = storage.get(Amenity, amenity_id)
     if rez is None:
