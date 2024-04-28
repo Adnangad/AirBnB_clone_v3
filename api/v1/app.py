@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """This is the flask module"""
-from flask import Flask
+from flask import Flask, jsonify, make_response
 import os
-from models import storage
+import models
 from api.v1.views import app_views
 
 
@@ -14,7 +14,12 @@ app.url_map.strict_slashes = False
 @app.teardown_appcontext
 def close():
     """Exits the db storage"""
-    storage.close()
+    models.storage.close()
+
+@app.errorhandler(404)
+def err(error):
+    """Handles the 404 error."""
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == '__main__':
