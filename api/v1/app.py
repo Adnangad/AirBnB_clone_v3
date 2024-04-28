@@ -16,6 +16,7 @@ def close():
     """Exits the db storage"""
     models.storage.close()
 
+
 @app.errorhandler(404)
 def err(error):
     """Handles the 404 error"""
