@@ -2,7 +2,7 @@
 """This is the flask module"""
 from models import storage
 from api.v1.views import app_views
-from os import getenv
+from os import environ
 from flask import Flask, jsonify, make_response
 
 
@@ -24,8 +24,8 @@ def err(error):
 
 
 if __name__ == '__main__':
-    host = os.getenv('HBNB_API_HOST')
-    port = os.getenv('HBNB_API_PORT')
+    host = environ.get('HBNB_API_HOST')
+    port = environ.get('HBNB_API_PORT')
     if not host:
         host = '0.0.0.0'
     if not port:
