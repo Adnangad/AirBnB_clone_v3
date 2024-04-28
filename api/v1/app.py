@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This module initializes a Flask application to serve an API. It registers blueprints for API endpoints,
+This module initializes a Flask application to serve an API,
 configures CORS (Cross-Origin Resource Sharing), and sets up error handling.
 """
 from models import storage
