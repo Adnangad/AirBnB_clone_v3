@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """This is the flask module"""
-from flask import Flask, jsonify, make_response
-import models
-import os
+from models import storage
 from api.v1.views import app_views
+from os import getenv
+from flask import Flask, jsonify, make_response
 
 
 app = Flask(__name__)
