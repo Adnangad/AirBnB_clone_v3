@@ -13,13 +13,13 @@ app.url_map.strict_slashes = False
 
 @app.teardown_appcontext
 def close():
-    """Exits the db storage"""
+    """ Exits the db storage """
     models.storage.close()
 
 
 @app.errorhandler(404)
 def err(error):
-    """Handles the 404 error"""
+    """ Handles the 404 error """
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
