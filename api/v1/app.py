@@ -1,6 +1,32 @@
 #!/usr/bin/python3
 """
-This is the flask module
+Flask API Module
+
+This module initializes a Flask application to serve an API. It registers blueprints for API endpoints,
+configures CORS (Cross-Origin Resource Sharing), and sets up error handling.
+
+The API allows clients to interact with resources managed by the application, and it supports 
+cross-origin requests from any origin (0.0.0.0) using CORS.
+
+Usage:
+    To run the API server, execute this script directly:
+        $ python3 <script_name.py>
+
+    Environment variables:
+        - HBNB_API_HOST: Host IP address. Default is '0.0.0.0'.
+        - HBNB_API_PORT: Port number. Default is 5000.
+
+Endpoints:
+    - '/api/v1/*': API endpoints for version 1 of the API.
+    - Error handling: 404 error returns a JSON response with {'error': 'Not found'}.
+
+Dependencies:
+    - Flask: Web application framework.
+    - Flask-CORS: CORS support for Flask applications.
+
+Note:
+    This script is intended to serve as the entry point for the Flask application and should be executed
+    to start the API server.
 """
 from models import storage
 from api.v1.views import app_views
