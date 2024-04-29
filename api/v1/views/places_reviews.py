@@ -9,8 +9,8 @@ from flask import abort, jsonify, make_response, request
 
 
 @app_views.route('/places/<place_id>/reviews', methods=['GET'])
-def get_reviews_by_places(place_id):
-    """Gets a list of all review objects"""
+def get_reviews_by_place(place_id):
+    """Retrieves the list of all Review objects of a Place"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
@@ -20,7 +20,7 @@ def get_reviews_by_places(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=['GET'])
 def get_review(review_id):
-    """Gets the review object"""
+    """Retrieves a Review object"""
     review = storage.get(Review, review_id)
     if not review:
         abort(404)
@@ -29,7 +29,7 @@ def get_review(review_id):
 
 @app_views.route('/reviews/<review_id>', methods=['DELETE'])
 def delete_review(review_id):
-    """Deletes a review object"""
+    """Deletes a Review object"""
     review = storage.get(Review, review_id)
     if not review:
         abort(404)
@@ -40,7 +40,7 @@ def delete_review(review_id):
 
 @app_views.route('/places/<place_id>/reviews', methods=['POST'])
 def create_review(place_id):
-    """Creates a new review object"""
+    """Creates a Review object"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
@@ -63,7 +63,7 @@ def create_review(place_id):
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'])
 def update_review(review_id):
-    """Updates a review object"""
+    """Updates a Review object"""
     review = storage.get(Review, review_id)
     if not review:
         abort(404)

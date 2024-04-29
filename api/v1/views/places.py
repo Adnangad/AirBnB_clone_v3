@@ -2,6 +2,7 @@
 """Place module"""
 from models.place import Place
 from models.city import City
+from models.user import User
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, make_response, request
@@ -9,6 +10,7 @@ from flask import abort, jsonify, make_response, request
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'])
 def get_places_by_city(city_id):
+    """Gets a list of all places"""
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -18,6 +20,7 @@ def get_places_by_city(city_id):
 
 @app_views.route('/places/<place_id>', methods=['GET'])
 def get_place(place_id):
+    """Gets places objects"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
@@ -26,6 +29,7 @@ def get_place(place_id):
 
 @app_views.route('/places/<place_id>', methods=['DELETE'])
 def delete_place(place_id):
+    """DElets a place object"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
@@ -36,6 +40,7 @@ def delete_place(place_id):
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'])
 def create_place(city_id):
+    """creates a new place object"""
     city = storage.get(City, city_id)
     if not city:
         abort(404)
@@ -58,6 +63,7 @@ def create_place(city_id):
 
 @app_views.route('/places/<place_id>', methods=['PUT'])
 def update_place(place_id):
+    """Updates an object"""
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
