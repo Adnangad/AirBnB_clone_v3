@@ -114,6 +114,6 @@ class TestFileStorage(unittest.TestCase):
         """Tests count method"""
         storage = db_storage.DBStorage()
         c = storage.count()
-        self.assertEqual(c, 1013)
+        self.assertEqual(c, len(storage.all()))
         d = storage.count(State)
-        self.assertEqual(d, 27)
+        self.assertEqual(d, len(storage.all(State)))
